@@ -87,6 +87,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         btneliminar.setEnabled(true);
         btnmodificar.setEnabled(true);
         btneliminar.setEnabled(true);
+        btnlimpiar.setEnabled(true);
 
         id_jugador.setText("");
         txtcotizacion.setText("");
@@ -157,6 +158,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         txtcedula = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         btnnuevo = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablalistado = new javax.swing.JTable();
@@ -352,6 +354,9 @@ public class Jugador extends javax.swing.JInternalFrame {
             }
         });
         fondo.add(btnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
+
+        jTextField1.setText("maximo 10 nùmeros");
+        fondo.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listado de jugadores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -582,7 +587,7 @@ public class Jugador extends javax.swing.JInternalFrame {
             if (func.editar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, "MODIFICACION EXITOSA");
                 mostrar("");
-                inhabilitar();
+                habilitar();
             }
         }
 //Grabar();
@@ -943,6 +948,7 @@ public class Jugador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbltotalregistros;
     private javax.swing.JTable tablalistado;
     private javax.swing.JTextField txtactual;
