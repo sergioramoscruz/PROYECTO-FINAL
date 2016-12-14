@@ -162,6 +162,11 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         });
         jPanel2.add(txtporcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, 130, 30));
 
+        txtcedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcedulaActionPerformed(evt);
+            }
+        });
         txtcedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtcedulaKeyTyped(evt);
@@ -198,6 +203,12 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         jLabel7.setText("APELLIDOS :");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
         jPanel2.add(txtapellidos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 270, 30));
+
+        txtnombres2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnombres2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtnombres2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 230, 30));
 
         Porcentaje1.setText("PORCENTAJE :");
@@ -384,6 +395,14 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
     private void txtcotizacion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcotizacion2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtcotizacion2ActionPerformed
+
+    private void txtcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcedulaActionPerformed
+
+    private void txtnombres2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombres2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnombres2ActionPerformed
 
     public void Eliminar() {
         Conexion con = new Conexion();

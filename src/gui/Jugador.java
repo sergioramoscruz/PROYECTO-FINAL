@@ -16,16 +16,16 @@ import javax.swing.JTable;
 import dominio.jugador;
 import javax.swing.table.DefaultTableModel;
 import repositorio.repositoryJugador;
-import repositorio.repositoryEquipo;
+import repositorio.repositoryEquipos;
 import dominio.equipo;
-import gui.Equipo;
+
 import java.util.List;
 /**
  *
  * @author HP1000
  */
 public class Jugador extends javax.swing.JInternalFrame {
-  repositoryEquipo equiporep=new   repositoryEquipo();
+  repositoryEquipos equiporep=new   repositoryEquipos();
     /**
      * Creates new form Jugador
      */

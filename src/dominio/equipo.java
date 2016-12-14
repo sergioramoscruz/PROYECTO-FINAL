@@ -43,12 +43,11 @@ public class equipo {
         this.pasaporte = pasaporte;
              id++;
     }
+
+    public equipo() {
+    }
     
     
-    
-      public equipo(String nombre){
-      this.nombre = nombre;    
-      }
 
     public int getIdequipo() {
         return Idequipo;
