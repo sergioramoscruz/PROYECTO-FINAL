@@ -4,39 +4,45 @@
  * and open the template in the editor.
  */
 package dominio;
-
+import java.sql.Date;
 /**
  *
  * @author HP1000
  */
 public class transferencia {
-    private String fechatransferencia;
+    private Date fecha_transferencia;
     private String modotransferencia;
     private String equipotransferencia;
     private String descripcion;
-    private String cotizacion;
+    private Double valoragegado;
     private int idtransferencia;
     private int porcentaje;
+ private int numtransfer;
 
-    public transferencia(String fechatransferencia, String modotransferencia, String equipotransferencia, String descripcion, String cotizacion, int idtransferencia, int porcentaje) {
-        this.fechatransferencia = fechatransferencia;
+    public transferencia(Date fecha_transferencia, String modotransferencia, String equipotransferencia, String descripcion, Double valoragegado, int idtransferencia, int porcentaje, int numtransfer) {
+        this.fecha_transferencia = fecha_transferencia;
         this.modotransferencia = modotransferencia;
         this.equipotransferencia = equipotransferencia;
         this.descripcion = descripcion;
-        this.cotizacion = cotizacion;
+        this.valoragegado = valoragegado;
         this.idtransferencia = idtransferencia;
         this.porcentaje = porcentaje;
+        this.numtransfer = numtransfer;
     }
+
+ 
+
+    
     public transferencia(){
         
     }
 
-    public String getFechatransferencia() {
-        return fechatransferencia;
+    public Date getFecha_transferencia() {
+        return fecha_transferencia;
     }
 
-    public void setFechatransferencia(String fechatransferencia) {
-        this.fechatransferencia = fechatransferencia;
+    public void setFecha_transferencia(Date fecha_transferencia) {
+        this.fecha_transferencia = fecha_transferencia;
     }
 
     public String getModotransferencia() {
@@ -63,12 +69,12 @@ public class transferencia {
         this.descripcion = descripcion;
     }
 
-    public String getCotizacion() {
-        return cotizacion;
+    public Double getValoragegado() {
+        return valoragegado;
     }
 
-    public void setCotizacion(String cotizacion) {
-        this.cotizacion = cotizacion;
+    public void setValoragegado(Double valoragegado) {
+        this.valoragegado = valoragegado;
     }
 
     public int getIdtransferencia() {
@@ -86,9 +92,13 @@ public class transferencia {
     public void setPorcentaje(int porcentaje) {
         this.porcentaje = porcentaje;
     }
-    
-    
-    
-    
+
+    public int getNumtransfer() {
+        return numtransfer;
+    }
+
+    public void setNumtransfer(int numtransfer) {
+        this.numtransfer = numtransfer;
+    }
     
 }

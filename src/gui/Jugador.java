@@ -16,13 +16,16 @@ import javax.swing.JTable;
 import dominio.jugador;
 import javax.swing.table.DefaultTableModel;
 import repositorio.repositoryJugador;
-
+import repositorio.repositoryEquipo;
+import dominio.equipo;
+import gui.Equipo;
+import java.util.List;
 /**
  *
  * @author HP1000
  */
 public class Jugador extends javax.swing.JInternalFrame {
-
+  repositoryEquipo equiporep=new   repositoryEquipo();
     /**
      * Creates new form Jugador
      */
@@ -30,6 +33,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         initComponents();
         mostrar("");
         inhabilitar();
+        llenarequipos();
 
     }
 
@@ -48,15 +52,16 @@ public class Jugador extends javax.swing.JInternalFrame {
         txtapellidos.setEnabled(false);
         txtcotizacion.setEnabled(false);
         cboposicion.setEnabled(false);
+        cboequipoactual.setEnabled(false);
+          cboequipodebug.setEnabled(false);
         txtedad.setEnabled(false);
         txtcedula.setEnabled(false);
         txtpasaporte.setEnabled(false);
-        txtactual.setEnabled(false);
-        txtdebug.setEnabled(false);
+      
 
         btnguardar.setEnabled(false);
-        btneliminar.setEnabled(false);
-         btnmodificar.setEnabled(false);
+        btneliminar1.setEnabled(false);
+        
         btnlimpiar.setEnabled(false);
 
         id_jugador.setText("");
@@ -66,8 +71,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         txtcedula.setText("");
         txtedad.setText("");
         txtpasaporte.setText("");
-        txtactual.setText("");
-        txtdebug.setText("");
+        
     }
 
     void habilitar() {
@@ -80,14 +84,13 @@ public class Jugador extends javax.swing.JInternalFrame {
         txtedad.setEnabled(true);
         txtcedula.setEnabled(true);
         txtpasaporte.setEnabled(true);
-        txtactual.setEnabled(true);
-        txtdebug.setEnabled(true);
+        cboequipoactual.setEnabled(true);
+         cboequipodebug.setEnabled(true);
 
         btnguardar.setEnabled(true);
-        btneliminar.setEnabled(true);
-        btnmodificar.setEnabled(true);
-        btneliminar.setEnabled(true);
-        btnlimpiar.setEnabled(true);
+       btnlimpiar.setEnabled(true);
+        btneliminar1.setEnabled(true);
+        btnnuevo.setEnabled(false);
 
         id_jugador.setText("");
         txtcotizacion.setText("");
@@ -96,8 +99,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         txtcedula.setText("");
         txtedad.setText("");
         txtpasaporte.setText("");
-        txtactual.setText("");
-        txtdebug.setText("");
+        
 
     }
 
@@ -141,15 +143,11 @@ public class Jugador extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btnguardar = new javax.swing.JButton();
-        btneliminar = new javax.swing.JButton();
-        btnmodificar = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         txtpasaporte = new javax.swing.JTextField();
         txtapellidos = new javax.swing.JTextField();
         txtnombres = new javax.swing.JTextField();
         txtedad = new javax.swing.JTextField();
-        txtdebug = new javax.swing.JTextField();
-        txtactual = new javax.swing.JTextField();
         txtcotizacion = new javax.swing.JTextField();
         cboposicion = new javax.swing.JComboBox<>();
         btnlimpiar = new javax.swing.JButton();
@@ -158,7 +156,8 @@ public class Jugador extends javax.swing.JInternalFrame {
         txtcedula = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         btnnuevo = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        cboequipoactual = new javax.swing.JComboBox<>();
+        cboequipodebug = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablalistado = new javax.swing.JTable();
@@ -224,24 +223,6 @@ public class Jugador extends javax.swing.JInternalFrame {
         });
         fondo.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, -1, -1));
 
-        btneliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btneliminar.setText("ELIMINAR");
-        btneliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarActionPerformed(evt);
-            }
-        });
-        fondo.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 460, -1, -1));
-
-        btnmodificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnmodificar.setText("MODIFICAR");
-        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnmodificarActionPerformed(evt);
-            }
-        });
-        fondo.add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, -1, -1));
-
         btnsalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnsalir.setText("SALIR");
         btnsalir.addActionListener(new java.awt.event.ActionListener() {
@@ -249,7 +230,7 @@ public class Jugador extends javax.swing.JInternalFrame {
                 btnsalirActionPerformed(evt);
             }
         });
-        fondo.add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, -1, -1));
+        fondo.add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, -1, -1));
 
         txtpasaporte.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtpasaporte.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -288,22 +269,6 @@ public class Jugador extends javax.swing.JInternalFrame {
         });
         fondo.add(txtedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 190, -1));
 
-        txtdebug.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtdebug.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtdebugKeyTyped(evt);
-            }
-        });
-        fondo.add(txtdebug, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, 225, -1));
-
-        txtactual.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtactual.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtactualKeyTyped(evt);
-            }
-        });
-        fondo.add(txtactual, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 410, 225, -1));
-
         txtcotizacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtcotizacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -323,7 +288,7 @@ public class Jugador extends javax.swing.JInternalFrame {
                 btnlimpiarActionPerformed(evt);
             }
         });
-        fondo.add(btnlimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, -1, -1));
+        fondo.add(btnlimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(413, 400, 110, -1));
         fondo.add(id_jugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 30, 10));
 
         btnbuscar.setText("Buscar");
@@ -353,10 +318,13 @@ public class Jugador extends javax.swing.JInternalFrame {
                 btnnuevoActionPerformed(evt);
             }
         });
-        fondo.add(btnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
+        fondo.add(btnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, -1, -1));
 
-        jTextField1.setText("maximo 10 nùmeros");
-        fondo.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, -1, -1));
+        cboequipoactual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        fondo.add(cboequipoactual, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 120, -1));
+
+        cboequipodebug.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        fondo.add(cboequipodebug, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, 130, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listado de jugadores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -424,27 +392,26 @@ public class Jugador extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11)
-                .addGap(18, 18, 18)
-                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnbuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btneliminar1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
                         .addGap(18, 18, 18)
+                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnbuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btneliminar1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbltotalregistros, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnimprimir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnsalir1)))
-                .addGap(48, 48, 48))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                        .addComponent(btnsalir1)
+                        .addGap(92, 92, 92))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,13 +423,13 @@ public class Jugador extends javax.swing.JInternalFrame {
                     .addComponent(btnbuscar1)
                     .addComponent(btneliminar1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbltotalregistros)
-                    .addComponent(btnsalir1)
-                    .addComponent(btnimprimir))
-                .addGap(29, 29, 29))
+                    .addComponent(btnimprimir)
+                    .addComponent(btnsalir1))
+                .addGap(94, 94, 94))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -478,10 +445,10 @@ public class Jugador extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE))
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         pack();
@@ -492,29 +459,15 @@ public class Jugador extends javax.swing.JInternalFrame {
         Limpiar();
     }//GEN-LAST:event_btnlimpiarActionPerformed
 
-    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-   Eliminar();
-        Limpiar();
-            
-    }//GEN-LAST:event_btneliminarActionPerformed
-
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnsalirActionPerformed
 
-    private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-        // TODO add your handling code here:
-       // Modificar();
-        Limpiar();
-        // Consultar();
-    }//GEN-LAST:event_btnmodificarActionPerformed
-
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
         Consultar();
-        btnmodificar.setEnabled(true);
-        btneliminar.setEnabled(true);
+        btneliminar1.setEnabled(true);
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
@@ -547,16 +500,7 @@ public class Jugador extends javax.swing.JInternalFrame {
             return;
         }
 
-        if (txtdebug.getText().length() == 0) {
-            JOptionPane.showConfirmDialog(rootPane, "INGRESAR EQUIPO DEBUG");
-            txtdebug.requestFocus();
-            return;
-        }
-        if (txtactual.getText().length() == 0) {
-            JOptionPane.showConfirmDialog(rootPane, "INGRESAR EQUIPO ACTUAL");
-            txtactual.requestFocus();
-            return;
-        }
+        
 
         jugador dts = new jugador();
         repositoryJugador func = new repositoryJugador();
@@ -568,8 +512,15 @@ public class Jugador extends javax.swing.JInternalFrame {
        
         int seleccionado = cboposicion.getSelectedIndex();
         dts.setPosicion((String) cboposicion.getItemAt(seleccionado));
-        dts.setEquipodebug(txtdebug.getText());
-        dts.setEquipoactual(txtactual.getText());
+        
+         seleccionado = cboequipodebug.getSelectedIndex();
+        dts.setEquipodebug((String) cboequipodebug.getItemAt(seleccionado));
+        
+        seleccionado = cboequipoactual.getSelectedIndex();
+        dts.setEquipoactual((String) cboequipoactual.getItemAt(seleccionado));
+        
+        
+        
         dts.setCotizacion(Double.parseDouble(txtcotizacion.getText()));
       dts.setCedula (Integer.parseInt(txtcedula.getText()));
 
@@ -587,7 +538,7 @@ public class Jugador extends javax.swing.JInternalFrame {
             if (func.editar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, "MODIFICACION EXITOSA");
                 mostrar("");
-                habilitar();
+                inhabilitar();
             }
         }
 //Grabar();
@@ -617,30 +568,6 @@ public class Jugador extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_txtapellidosKeyTyped
-
-    private void txtactualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtactualKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if ((Character.isDigit(c))) {
-
-            evt.consume();
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "Ingresar solo cadena de caracteres por favor");
-        }
-
-    }//GEN-LAST:event_txtactualKeyTyped
-
-    private void txtdebugKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdebugKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if ((Character.isDigit(c))) {
-
-            evt.consume();
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "Ingresar solo cadena de caracteres por favor");
-        }
-
-    }//GEN-LAST:event_txtdebugKeyTyped
 
     private void txtcedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedulaKeyTyped
         // TODO add your handling code here:
@@ -697,27 +624,28 @@ public class Jugador extends javax.swing.JInternalFrame {
     private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
         // TODO add your handling code here:
         btnguardar.setText("Editar");
-        // habilitar();
-        btneliminar.setEnabled(true);
-        //accion="editar";
+         habilitar();
+         
+        btneliminar1.setEnabled(true);
+        accion="editar";
         try {
-            //int fila = tablalistado.rowAtPoint(evt.getPoint());
-            int fila = tablalistado.getSelectedRow();
-            //System.err.println(""+fila);
+            int fila = tablalistado.rowAtPoint(evt.getPoint());
+            //int fila = tablalistado.getSelectedRow();
+            System.err.println(""+fila);
             id_jugador.setText(tablalistado.getValueAt(fila, 0).toString());
             System.err.println("" + id_jugador.getText());
             if (id_jugador.getText().equals("")) {
-                btneliminar.setEnabled(false);
+                btneliminar1.setEnabled(false);
             } else {
-                btneliminar.setEnabled(true);
+                btneliminar1.setEnabled(true);
             }
             txtnombres.setText(tablalistado.getValueAt(fila, 1).toString());
             txtapellidos.setText(tablalistado.getValueAt(fila, 2).toString());
             txtedad.setText(tablalistado.getValueAt(fila, 3).toString());
             txtpasaporte.setText(tablalistado.getValueAt(fila, 4).toString());
             cboposicion.setSelectedItem(tablalistado.getValueAt(fila, 5).toString());
-            txtdebug.setText(tablalistado.getValueAt(fila, 6).toString());
-            txtactual.setText(tablalistado.getValueAt(fila, 7).toString());
+            cboequipodebug.setSelectedItem(tablalistado.getValueAt(fila, 6).toString());
+            cboequipoactual.setSelectedItem(tablalistado.getValueAt(fila, 7).toString());
             txtcotizacion.setText(tablalistado.getValueAt(fila, 8).toString());
             txtcedula.setText(tablalistado.getValueAt(fila, 9).toString());
         } catch (Exception ex) {
@@ -777,7 +705,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         accion = "guardar";
     }//GEN-LAST:event_btnnuevoActionPerformed
 
-     public void Grabar() {
+   /*  public void Grabar() {
 
         try {
             Conexion con = new Conexion();
@@ -831,7 +759,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         } catch (SQLException exc) {
             //  JOptionPane.showMessageDialog(null,exc.getMessage(),"WARNING",JOptionPane.ERROR_MESSAGE);
         }
-    }*/
+    }
 
     public void Eliminar() {
         Conexion con = new Conexion();
@@ -843,7 +771,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         } catch (SQLException exc) {
             //JOptionPane.showMessageDialog(null, exc.getMessage(), "WARNING", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }*/
 
     public void Consultar() {
         Conexion con = new Conexion();
@@ -858,8 +786,8 @@ public class Jugador extends javax.swing.JInternalFrame {
                 txtedad.setText(rs.getString(4));
                 txtpasaporte.setText(rs.getString(5));
                 cboposicion.setSelectedItem(rs.getString(6));
-                txtdebug.setText(rs.getString(7));
-                txtactual.setText(rs.getString(8));
+                 cboequipodebug.setSelectedItem(rs.getString(7));
+                cboequipoactual.setSelectedItem(rs.getString(8));
                 txtcotizacion.setText(rs.getString(9));
                 txtcedula.setText(rs.getString(10));
 
@@ -879,15 +807,30 @@ public class Jugador extends javax.swing.JInternalFrame {
         txtedad.setText("");
         txtpasaporte.setText("");
         cboposicion.setSelectedIndex(-0);
-        txtdebug.setText("");
-        txtactual.setText("");
+         cboequipoactual.setSelectedIndex(-0);
+         cboequipodebug.setSelectedIndex(-0);
         txtcotizacion.setText("");
         txtcedula.setText("");
     }
 
-    /**
-     * @param args the command line arguments
-     */
+   
+    
+   public void llenarequipos(){
+        List<equipo> equi =equiporep.getEquipo();
+        
+        cboequipodebug.removeAllItems();  
+        cboequipoactual.removeAllItems();
+       
+        
+        for(equipo eq : equi){
+            
+            cboequipoactual.addItem(eq.getNombre());
+            cboequipodebug.addItem(eq.getNombre());
+        }
+        
+  
+   }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -911,6 +854,7 @@ public class Jugador extends javax.swing.JInternalFrame {
             java.util.logging.Logger.getLogger(Jugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -923,15 +867,15 @@ public class Jugador extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btnbuscar1;
-    private javax.swing.JButton btneliminar;
     private javax.swing.JButton btneliminar1;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnimprimir;
     private javax.swing.JButton btnlimpiar;
-    private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
     private javax.swing.JButton btnsalir;
     private javax.swing.JButton btnsalir1;
+    private javax.swing.JComboBox<String> cboequipoactual;
+    private javax.swing.JComboBox<String> cboequipodebug;
     private javax.swing.JComboBox<String> cboposicion;
     private javax.swing.JPanel fondo;
     private javax.swing.JTextField id_jugador;
@@ -948,15 +892,12 @@ public class Jugador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbltotalregistros;
     private javax.swing.JTable tablalistado;
-    private javax.swing.JTextField txtactual;
     private javax.swing.JTextField txtapellidos;
     private javax.swing.JTextField txtbuscar;
     private javax.swing.JTextField txtcedula;
     private javax.swing.JTextField txtcotizacion;
-    private javax.swing.JTextField txtdebug;
     private javax.swing.JTextField txtedad;
     private javax.swing.JTextField txtnombres;
     private javax.swing.JTextField txtpasaporte;
