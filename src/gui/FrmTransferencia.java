@@ -6,27 +6,37 @@
 package gui;
 
 import Conexion.Conexion;
+import dominio.equipo;
+import dominio.jugador;
+import dominio.transferencia;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import repositorio.repositoryTransferencia;
+import repositorio.repositoryEquipos;
+import dto.transferenciadto;
 
 /**
  *
  * @author HP1000
  */
-public class Tramsferencia extends javax.swing.JInternalFrame {
-
+public class FrmTransferencia extends javax.swing.JInternalFrame {
+repositoryEquipos equiporep=new   repositoryEquipos();
+repositoryTransferencia tr =new repositoryTransferencia();
     /**
      * Creates new form Tramsferencia
      */
-    public Tramsferencia() {
+    public FrmTransferencia() {
         initComponents();
+        llenarequipos();
         txtid_transferencia.setVisible(false);
         txtTransfer.setVisible(false);
         txtnombres2.setEnabled(false);
@@ -54,10 +64,6 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         Porcentaje = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btnguardar = new javax.swing.JButton();
-        btneliminar = new javax.swing.JButton();
-        btnmodificar = new javax.swing.JButton();
-        btnsalir = new javax.swing.JButton();
-        txtequipotransferencia = new javax.swing.JTextField();
         txtporcentaje = new javax.swing.JTextField();
         txtcedula = new javax.swing.JTextField();
         cbomodotransferncia = new javax.swing.JComboBox<>();
@@ -71,102 +77,65 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         txtnombres2 = new javax.swing.JTextField();
         Porcentaje1 = new javax.swing.JLabel();
         txtcotizacion2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        btnTranfer = new javax.swing.JButton();
+        btnbuscarjugador = new javax.swing.JButton();
+        btnbuscartransfer = new javax.swing.JButton();
         txtTransfer = new javax.swing.JTextField();
         btcalcular = new javax.swing.JButton();
         COTIZACION = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         fecha_transferencia = new com.toedter.calendar.JDateChooser();
+        cboequipotransferencia = new javax.swing.JComboBox<>();
+        btnmodificar = new javax.swing.JButton();
+        btneliminar = new javax.swing.JButton();
+        btnsalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Traspaso"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("TRANSFERENCIA");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 16, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, -1, -1));
 
         jLabel2.setText("FECHA :");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
 
         jLabel3.setText("DESCRIPCIÒN:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 80, 20));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 80, 20));
 
         jLabel5.setText("EQUIPO TRANSFERENCIA :");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 140, 20));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 140, 20));
 
         jLabel6.setText("MODO:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
 
         Porcentaje.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Porcentaje.setForeground(new java.awt.Color(0, 0, 204));
+        Porcentaje.setForeground(new java.awt.Color(255, 255, 51));
         Porcentaje.setText("VALOR ADICIONAL :");
-        jPanel2.add(Porcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 330, -1, 20));
+        jPanel2.add(Porcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, -1, 20));
 
         jLabel9.setText("CEDULA:");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         btnguardar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnguardar.setForeground(new java.awt.Color(204, 0, 0));
-        btnguardar.setText("OK");
+        btnguardar.setText("GUARDAR");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnguardarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 450, 90, -1));
-
-        btneliminar.setText("ELIMINAR");
-        btneliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, -1, -1));
-
-        btnmodificar.setText("MODIFICAR");
-        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnmodificarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, -1, 30));
-
-        btnsalir.setText("SALIR");
-        btnsalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsalirActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 450, 70, -1));
-
-        txtequipotransferencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtequipotransferenciaActionPerformed(evt);
-            }
-        });
-        txtequipotransferencia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtequipotransferenciaKeyTyped(evt);
-            }
-        });
-        jPanel2.add(txtequipotransferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 200, 30));
+        jPanel2.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 120, 130, -1));
 
         txtporcentaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtporcentajeActionPerformed(evt);
             }
         });
-        jPanel2.add(txtporcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, 130, 30));
+        jPanel2.add(txtporcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, 60, 30));
 
-        txtcedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtcedulaActionPerformed(evt);
-            }
-        });
         txtcedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtcedulaKeyTyped(evt);
@@ -180,7 +149,7 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
                 cbomodotransfernciaActionPerformed(evt);
             }
         });
-        jPanel2.add(cbomodotransferncia, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, 120, 30));
+        jPanel2.add(cbomodotransferncia, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 120, 30));
 
         btnlimpiar.setText("LIMPIAR");
         btnlimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -188,31 +157,25 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
                 btnlimpiarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnlimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, -1, 30));
-        jPanel2.add(txtid_transferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 10, 60, -1));
+        jPanel2.add(btnlimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(793, 410, 90, 30));
+        jPanel2.add(txtid_transferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 60, -1));
 
         txtdescripcion.setColumns(20);
         txtdescripcion.setRows(5);
         jScrollPane1.setViewportView(txtdescripcion);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 270, 90));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 270, 90));
 
         jLabel4.setText("NOMBRES :");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         jLabel7.setText("APELLIDOS :");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
-        jPanel2.add(txtapellidos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 270, 30));
-
-        txtnombres2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnombres2ActionPerformed(evt);
-            }
-        });
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+        jPanel2.add(txtapellidos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 230, 30));
         jPanel2.add(txtnombres2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 230, 30));
 
         Porcentaje1.setText("PORCENTAJE :");
-        jPanel2.add(Porcentaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 240, -1, 20));
+        jPanel2.add(Porcentaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, -1, 20));
 
         txtcotizacion2.setForeground(new java.awt.Color(51, 0, 204));
         txtcotizacion2.addActionListener(new java.awt.event.ActionListener() {
@@ -220,24 +183,24 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
                 txtcotizacion2ActionPerformed(evt);
             }
         });
-        jPanel2.add(txtcotizacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 330, 130, 30));
+        jPanel2.add(txtcotizacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 120, 30));
 
-        jButton1.setText("...");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnbuscarjugador.setText("...");
+        btnbuscarjugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnbuscarjugadorActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, -1, -1));
+        jPanel2.add(btnbuscarjugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, -1, -1));
 
-        btnTranfer.setText("...");
-        btnTranfer.addActionListener(new java.awt.event.ActionListener() {
+        btnbuscartransfer.setText("...");
+        btnbuscartransfer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTranferActionPerformed(evt);
+                btnbuscartransferActionPerformed(evt);
             }
         });
-        jPanel2.add(btnTranfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, -1, -1));
-        jPanel2.add(txtTransfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 40, -1));
+        jPanel2.add(btnbuscartransfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, -1, -1));
+        jPanel2.add(txtTransfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 40, -1));
 
         btcalcular.setText("Calcular");
         btcalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -245,10 +208,10 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
                 btcalcularActionPerformed(evt);
             }
         });
-        jPanel2.add(btcalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 240, 60, 30));
+        jPanel2.add(btcalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 40, 30));
 
         COTIZACION.setText("COTIZACION: ");
-        jPanel2.add(COTIZACION, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 150, 80, 20));
+        jPanel2.add(COTIZACION, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 80, 20));
 
         txtValor.setForeground(new java.awt.Color(204, 0, 0));
         txtValor.addActionListener(new java.awt.event.ActionListener() {
@@ -256,8 +219,35 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
                 txtValorActionPerformed(evt);
             }
         });
-        jPanel2.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 140, 130, 30));
-        jPanel2.add(fecha_transferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, 130, 30));
+        jPanel2.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 130, 30));
+        jPanel2.add(fecha_transferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 130, 30));
+
+        cboequipotransferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(cboequipotransferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 120, 30));
+
+        btnmodificar.setText("MODIFICAR");
+        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmodificarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, -1, 30));
+
+        btneliminar.setText("ELIMINAR");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(791, 320, 90, 30));
+
+        btnsalir.setText("SALIR");
+        btnsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalirActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 70, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,15 +255,14 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1049, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -287,22 +276,6 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
     private void cbomodotransfernciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbomodotransfernciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbomodotransfernciaActionPerformed
-
-    private void txtequipotransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtequipotransferenciaActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_txtequipotransferenciaActionPerformed
-
-    private void txtequipotransferenciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtequipotransferenciaKeyTyped
-        // TODO add your handling code here:
-         char c = evt.getKeyChar();
-        if ((Character.isDigit(c))) {
-            
-            evt.consume();
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "Ingresar solo cadena de caracteres por favor");
-        }
-    }//GEN-LAST:event_txtequipotransferenciaKeyTyped
 
     private void txtcedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedulaKeyTyped
         // TODO add your handling code here:
@@ -320,15 +293,52 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         Limpiar();
     }//GEN-LAST:event_btnlimpiarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnbuscarjugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarjugadorActionPerformed
         // TODO add your handling code here:
-        Consultar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+       // ConsultarFutbolista(); Consulta a solo un jugador
+       jugador jugador2=new jugador();
+       jugador2.setIdjugador(Integer.parseInt(txtcedula.getText()));
+       
+       repositoryTransferencia dts = new repositoryTransferencia();
+       List<jugador>jugador =  dts.getJugador(jugador2);
+       
+        for (jugador object : jugador) {
+            txtid_transferencia.setText(String .valueOf(object.getIdjugador()));
+            txtValor.setText(String.valueOf(object.getCotizacion()));
+            txtnombres2.setText(String.valueOf(object.getNombres()));
+            txtapellidos2.setText(String.valueOf(object.getApellidos()));
+           
+            
+        }
+       
+       
+    }//GEN-LAST:event_btnbuscarjugadorActionPerformed
 
-    private void btnTranferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTranferActionPerformed
+    private void btnbuscartransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscartransferActionPerformed
         // TODO add your handling code here:
-        ConsultarTranfer();
-    }//GEN-LAST:event_btnTranferActionPerformed
+        //ConsultarTranfer();
+        transferenciadto dto= new transferenciadto();
+        dto.setId_transferencia(Integer.parseInt(txtcedula.getText()));
+        
+        repositoryTransferencia reTransferencia=new repositoryTransferencia();
+        List<transferenciadto>jugadortransferido= reTransferencia.getJugadorTransferido(dto);
+        for (transferenciadto object : jugadortransferido) {
+             txtid_transferencia.setText(String .valueOf(object.getId_jugador()));
+             txtdescripcion.setText(String.valueOf(object.getDescripcion()));
+             txtTransfer.setText(String.valueOf(object.getId_transferencia()));
+            
+        cbomodotransferncia.setSelectedItem(object.getModo_transferencia().toString());
+        
+fecha_transferencia.setDate( object.getFecha_transferencia());
+        
+            txtValor.setText(String.valueOf(object.getCotizacion()));
+            txtnombres2.setText(String.valueOf(object.getNombres()));
+            txtapellidos2.setText(String.valueOf(object.getApellidos()));
+            txtporcentaje.setText(String.valueOf(object.getPorcentaje()));
+            txtcotizacion2.setText(String.valueOf(object.getCotizacion2()));
+                        
+        }
+    }//GEN-LAST:event_btnbuscartransferActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         // TODO add your handling code here:
@@ -345,31 +355,82 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
             txtdescripcion.requestFocus();
             return;
         }
-        if (txtequipotransferencia.getText().length() == 0) {
-            JOptionPane.showConfirmDialog(rootPane, "INGRESAR FECHA");
-            txtequipotransferencia.requestFocus();
-            return;
-        }
-         if (txtequipotransferencia.getText().length() == 0) {
-            JOptionPane.showConfirmDialog(rootPane, "INGRESAR DESCRIPCCION");
-            txtequipotransferencia.requestFocus();
-            return;
-        }
+        transferencia transferencia= new transferencia();
+        
+      transferencia.setDescripcion(txtdescripcion.getText());
+      transferencia.setValoragegado(Double.parseDouble(txtcotizacion2.getText()));
+       transferencia.setPorcentaje(Integer.parseInt(txtporcentaje.getText()));
+      // fecha arreglar 
+      Calendar cal;
+        int d,m,a;
+        cal=fecha_transferencia.getCalendar();
+        d=cal.get(Calendar.DAY_OF_MONTH);
+        m=cal.get(Calendar.MONTH);
+        a=cal.get(Calendar.YEAR)-1900;  
+            
+      transferencia.setFecha_transferencia(new Date (a,m,d));
+  
+         int seleccionado = cbomodotransferncia.getSelectedIndex();
+        transferencia.setModotransferencia((String) cbomodotransferncia.getItemAt(seleccionado));
+      
+        seleccionado = cboequipotransferencia.getSelectedIndex();
+        transferencia.setEquipotransferencia((String) cboequipotransferencia.getItemAt(seleccionado));
+       transferencia.setId_jugador(Integer.parseInt(txtid_transferencia.getText()));
 
-        Grabar();
+
+        //Grabar();
+        
+        repositoryTransferencia func = new repositoryTransferencia();
+        func.grabar(transferencia);
+                
         Limpiar();
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
-        Modificar();
+        //Modificar();
         //ConsultarTranfer();
+        
+           transferencia transferencia= new transferencia();
+        
+      transferencia.setDescripcion(txtdescripcion.getText());
+      transferencia.setValoragegado(Double.parseDouble(txtcotizacion2.getText()));
+       transferencia.setPorcentaje(Integer.parseInt(txtporcentaje.getText()));
+      // fecha arreglar 
+      Calendar cal;
+        int d,m,a;
+        cal=fecha_transferencia.getCalendar();
+        d=cal.get(Calendar.DAY_OF_MONTH);
+        m=cal.get(Calendar.MONTH);
+        a=cal.get(Calendar.YEAR)-1900;  
+            
+      transferencia.setFecha_transferencia(new Date (a,m,d));
+  
+         int seleccionado = cbomodotransferncia.getSelectedIndex();
+        transferencia.setModotransferencia((String) cbomodotransferncia.getItemAt(seleccionado));
+      
+        seleccionado = cboequipotransferencia.getSelectedIndex();
+        transferencia.setEquipotransferencia((String) cboequipotransferencia.getItemAt(seleccionado));
+       transferencia.setId_jugador(Integer.parseInt(txtid_transferencia.getText()));
+       transferencia.setIdtransferencia(Integer.parseInt(txtTransfer.getText()));
+
+
+        //Grabar();
+        
+        repositoryTransferencia func = new repositoryTransferencia();
+        func.modificar(transferencia);
+     
+     
         Limpiar();
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        Eliminar();
+       transferencia transferencia = new transferencia();
+       transferencia.setIdtransferencia(Integer.parseInt(txtTransfer.getText()));
+       
+       repositoryTransferencia repTransferencia=new repositoryTransferencia();
+       repTransferencia.eliminar(transferencia);
         Limpiar();
     }//GEN-LAST:event_btneliminarActionPerformed
 
@@ -396,15 +457,7 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtcotizacion2ActionPerformed
 
-    private void txtcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtcedulaActionPerformed
-
-    private void txtnombres2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombres2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombres2ActionPerformed
-
-    public void Eliminar() {
+   /*public void Eliminar() {
         Conexion con = new Conexion();
         try {
             Connection conex = con.Open();
@@ -432,7 +485,7 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         a=cal.get(Calendar.YEAR)-1900;    
             pst.setDate(1, new Date(a,m,d));
             pst.setString(2, cbomodotransferncia.getSelectedItem().toString());
-            pst.setString(3, txtequipotransferencia.getText());
+              pst.setString(3, cboequipotransferencia.getSelectedItem().toString());
             pst.setString(4, txtdescripcion.getText());
             
             pst.setDouble(5, Double.parseDouble(txtcotizacion2.getText()));
@@ -448,7 +501,7 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         }
     }
     
-    public void Grabar() {
+   public void Grabar() {
         
         try {
             Conexion con = new Conexion();
@@ -466,7 +519,7 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         a=cal.get(Calendar.YEAR)-1900;    
             pst.setDate(1, new Date(a,m,d));
             pst.setString(2, cbomodotransferncia.getSelectedItem().toString());
-            pst.setString(3, txtequipotransferencia.getText());
+            pst.setString(3, cboequipotransferencia.getSelectedItem().toString());
             pst.setString(4, txtdescripcion.getText());
             
             pst.setDouble(5, cotizacion);
@@ -482,7 +535,7 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
           //  JOptionPane.showMessageDialog(null, exc, "WARNING", JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void Consultar(){
+    public void ConsultarFutbolista(){
          Conexion con = new Conexion();
         try{
             Connection conex = con.Open();
@@ -525,7 +578,7 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
                 
                 fecha_transferencia.setDate(Date.valueOf(rs.getString(4)));
                 cbomodotransferncia.setSelectedItem(rs.getString(5));
-                txtequipotransferencia.setText(rs.getString(6));
+                 cboequipotransferencia.setSelectedItem(rs.getString(6));
                 txtdescripcion.setText(rs.getString(7));
                 txtcotizacion2.setText(rs.getString(8));
                 txtporcentaje.setText(rs.getString(9));
@@ -542,11 +595,11 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         catch(SQLException exc){
             //JOptionPane.showMessageDialog(null,exc,"WARNING",JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }*/
     public void Limpiar() {
         txtid_transferencia.setText("");
         txtdescripcion.setText("");
-        //fecha_transferencia.setT("");
+        
         txtcedula.setText("");
         cbomodotransferncia.setSelectedIndex(-0);
         txtporcentaje.setText("");
@@ -554,10 +607,27 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
         txtapellidos2.setText(null);
         txtcotizacion2.setText(null);
         txtporcentaje.setText(null);
-        txtequipotransferencia.setText(null);
+       
         fecha_transferencia.setCalendar(null);
         txtValor.setText(null);
+        
     }
+         public void llenarequipos(){
+         
+        List<equipo> equi =equiporep.getEquipo();
+        
+        cboequipotransferencia.removeAllItems();  
+       
+        for(equipo eq : equi){
+            
+            cboequipotransferencia.addItem(eq.getNombre());
+           
+        }
+     }
+         
+        
+
+         
     /**
      * @param args the command line arguments
      */
@@ -575,20 +645,23 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tramsferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTransferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tramsferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTransferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tramsferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTransferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tramsferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTransferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tramsferencia().setVisible(true);
+                new FrmTransferencia().setVisible(true);
             }
         });
     }
@@ -598,15 +671,16 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Porcentaje;
     private javax.swing.JLabel Porcentaje1;
     private javax.swing.JButton btcalcular;
-    private javax.swing.JButton btnTranfer;
+    private javax.swing.JButton btnbuscarjugador;
+    private javax.swing.JButton btnbuscartransfer;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnlimpiar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnsalir;
+    private javax.swing.JComboBox<String> cboequipotransferencia;
     private javax.swing.JComboBox<String> cbomodotransferncia;
     private com.toedter.calendar.JDateChooser fecha_transferencia;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -623,7 +697,6 @@ public class Tramsferencia extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtcedula;
     private javax.swing.JTextField txtcotizacion2;
     private javax.swing.JTextArea txtdescripcion;
-    private javax.swing.JTextField txtequipotransferencia;
     private javax.swing.JTextField txtid_transferencia;
     private javax.swing.JTextField txtnombres2;
     private javax.swing.JTextField txtporcentaje;

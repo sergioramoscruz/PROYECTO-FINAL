@@ -144,14 +144,13 @@ public class repositoryEquipos {
    }
   
    public boolean eliminar (equipo dts){
-       sSQL="delete from equipo where idequipo";
+       sSQL="delete from equipo where idequipo='"+dts.getIdequipo()+"';";
        
        try {
            
            PreparedStatement pst=cn.prepareStatement(sSQL);
-           
-           pst.setInt(1, dts.getIdequipo());
-           
+           JOptionPane.showMessageDialog(null,dts.getIdequipo());
+          
            int n=pst.executeUpdate();
            
            if (n!=0){

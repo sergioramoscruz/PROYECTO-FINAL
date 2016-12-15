@@ -12,31 +12,30 @@ package dominio;
 public class jugador {
     
     private int idjugador ;
-    private int cedula;
     private String nombres;
     private String apellidos;
     private int edad;
     private int pasaporte;
+    private String posicion;
     private String equipodebug;
     private String equipoactual;
     private double cotizacion;
-    private String posicion;
+    private int cedula;
 
-    public jugador(int idjugador, int cedula, String nombres, String apellidos, int edad, int pasaporte, String equipodebug, double cotizacion, String posicion) {
+    public jugador(int idjugador, String nombres, String apellidos, int edad, int pasaporte, String posicion, String equipodebug, String equipoactual, double cotizacion, int cedula) {
         this.idjugador = idjugador;
-        this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.edad = edad;
         this.pasaporte = pasaporte;
-        this.equipodebug = equipodebug;
-        this.cotizacion = cotizacion;
         this.posicion = posicion;
+        this.equipodebug = equipodebug;
+        this.equipoactual = equipoactual;
+        this.cotizacion = cotizacion;
+        this.cedula = cedula;
     }
-    
-    public jugador(){
-        
-        
+
+    public jugador() {
     }
 
     public int getIdjugador() {
@@ -45,14 +44,6 @@ public class jugador {
 
     public void setIdjugador(int idjugador) {
         this.idjugador = idjugador;
-    }
-
-    public int getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(int cedula) {
-        this.cedula = cedula;
     }
 
     public String getNombres() {
@@ -87,6 +78,14 @@ public class jugador {
         this.pasaporte = pasaporte;
     }
 
+    public String getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(String posicion) {
+        this.posicion = posicion;
+    }
+
     public String getEquipodebug() {
         return equipodebug;
     }
@@ -111,13 +110,14 @@ public class jugador {
         this.cotizacion = cotizacion;
     }
 
-    public String getPosicion() {
-        return posicion;
+    public int getCedula() {
+        return cedula;
     }
 
-    public void setPosicion(String posicion) {
-        this.posicion = posicion;
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
     }
-    
+
+        
     
 }

@@ -14,8 +14,7 @@ public class equipo {
     
     private int Idequipo;
     private String nombre;
-    public static int id=1;
-    private String origen;
+  private String origen;
     private String serie;
     private int Num_jugadores;
     private int Num_asistentes;
@@ -41,7 +40,7 @@ public class equipo {
         this.nombresApellidos = nombresApellidos;
         this.edad = edad;
         this.pasaporte = pasaporte;
-             id++;
+            
     }
 
     public equipo() {

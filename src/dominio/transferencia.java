@@ -17,9 +17,11 @@ public class transferencia {
     private Double valoragegado;
     private int idtransferencia;
     private int porcentaje;
- private int numtransfer;
+    private int id_jugador;
+   
+ 
 
-    public transferencia(Date fecha_transferencia, String modotransferencia, String equipotransferencia, String descripcion, Double valoragegado, int idtransferencia, int porcentaje, int numtransfer) {
+    public transferencia(Date fecha_transferencia, String modotransferencia, String equipotransferencia, String descripcion, Double valoragegado, int idtransferencia, int porcentaje) {
         this.fecha_transferencia = fecha_transferencia;
         this.modotransferencia = modotransferencia;
         this.equipotransferencia = equipotransferencia;
@@ -27,7 +29,8 @@ public class transferencia {
         this.valoragegado = valoragegado;
         this.idtransferencia = idtransferencia;
         this.porcentaje = porcentaje;
-        this.numtransfer = numtransfer;
+  
+       
     }
 
  
@@ -93,12 +96,12 @@ public class transferencia {
         this.porcentaje = porcentaje;
     }
 
-    public int getNumtransfer() {
-        return numtransfer;
+    public int getId_jugador() {
+        return id_jugador;
     }
 
-    public void setNumtransfer(int numtransfer) {
-        this.numtransfer = numtransfer;
+    public void setId_jugador(int id_jugador) {
+        this.id_jugador = id_jugador;
     }
     
 }

@@ -190,13 +190,15 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
         });
         panelequipos.add(txtnombreequipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 150, -1));
 
+        btnguardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnguardar.setForeground(new java.awt.Color(204, 0, 0));
         btnguardar.setText("GUARDAR");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnguardarActionPerformed(evt);
             }
         });
-        panelequipos.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, -1, -1));
+        panelequipos.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, -1, -1));
 
         jButton1.setText("SALIR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -312,7 +314,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtpasaportetecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtedadtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,10 +334,10 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        panelequipos.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 490, 150));
+        panelequipos.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 510, 150));
 
         jLabel10.setText("Detalles:");
-        panelequipos.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, -1, -1));
+        panelequipos.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
         txtdetalles.setColumns(20);
         txtdetalles.setRows(5);
@@ -346,7 +348,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(txtdetalles);
 
-        panelequipos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 200, 60));
+        panelequipos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 200, 60));
         panelequipos.add(txtidequipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 30, 10));
 
         btnnuevo.setText("NUEVO");
@@ -355,7 +357,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
                 btnnuevoActionPerformed(evt);
             }
         });
-        panelequipos.add(btnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+        panelequipos.add(btnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listado de equipos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -430,52 +432,53 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(225, 225, 225)
+                        .addGap(12, 12, 12)
+                        .addComponent(lbltotalregistros, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnlimpiar)
+                        .addGap(124, 124, 124)
                         .addComponent(btnimprimir)
-                        .addGap(107, 107, 107)
-                        .addComponent(btneliminar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                         .addComponent(btnsalir1)
-                        .addGap(92, 92, 92))
+                        .addGap(79, 79, 79))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(btnbuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnlimpiar)
-                                    .addComponent(lbltotalregistros, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnbuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btneliminar1)
+                        .addGap(70, 70, 70))))
+            .addComponent(jScrollPane3)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnbuscar1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnbuscar1)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(btneliminar1)))
+                .addGap(36, 36, 36)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnimprimir)
-                    .addComponent(btnsalir1)
-                    .addComponent(btneliminar1)
-                    .addComponent(btnlimpiar))
-                .addGap(34, 34, 34)
-                .addComponent(lbltotalregistros)
-                .addGap(43, 43, 43))
+                .addGap(69, 69, 69)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbltotalregistros, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnimprimir)
+                        .addComponent(btnlimpiar)
+                        .addComponent(btnsalir1)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -483,20 +486,19 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelequipos, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelequipos, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelequipos, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -567,7 +569,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
         try {
             int fila = tablalistado.rowAtPoint(evt.getPoint());
             //int fila = tablalistado.getSelectedRow();
-            System.err.println(""+fila);
+            //System.err.println(""+fila);
             txtidequipo.setText(tablalistado.getValueAt(fila, 0).toString());
             System.err.println("" + txtidequipo.getText());
             if (txtidequipo.getText().equals("")) {
@@ -575,6 +577,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
             } else {
                 btneliminar1.setEnabled(true);
             }
+            //txtidequipo.setText(tablalistado.getValueAt(fila, 0).toString());
             txtnombreequipo.setText(tablalistado.getValueAt(fila, 1).toString());
             txtciudadorigen.setText(tablalistado.getValueAt(fila, 2).toString());
             cboserie.setSelectedItem(tablalistado.getValueAt(fila, 3).toString());
@@ -585,6 +588,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
              txtnombretecnico.setText(tablalistado.getValueAt(fila, 8).toString());
               txtedadtecnico.setText(tablalistado.getValueAt(fila, 9).toString());
                txtpasaportetecnico.setText(tablalistado.getValueAt(fila, 10).toString());
+                
                
         } catch (Exception ex) {
 
@@ -597,7 +601,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnbuscar1ActionPerformed
 
     private void btneliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminar1ActionPerformed
-        // TODO add your handling code here:
+     // TODO add your handling code here:
         if (txtidequipo.getText() != ("")) {
 
             int confirmacion = JOptionPane.showConfirmDialog(rootPane, "SEGURO DE ELIMINAR?", "Confirmar", 2);
@@ -623,7 +627,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
 
     private void btnimprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimprimirActionPerformed
         // TODO add your handling code here:
-        MessageFormat header = new MessageFormat("Listado de jugadores");
+        MessageFormat header = new MessageFormat("Listado de equipos");
         MessageFormat footer = new MessageFormat("Pagina{0,number,integer}");
         try {
             tablalistado.print(JTable.PrintMode.NORMAL, header, footer);

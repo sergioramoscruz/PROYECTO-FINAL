@@ -104,7 +104,7 @@ public class Login extends javax.swing.JFrame {
 
             if (rs.next()) {
 
-                JOptionPane.showMessageDialog(null, " ACCEDIENDO AL SISTEMA " + txtusuario.getText(), "Login \n", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, " Accediendo al sistema" + txtusuario.getText(), "Login \n", JOptionPane.INFORMATION_MESSAGE);
 
                 Menu form = new Menu();
                 //fondo.add(form);

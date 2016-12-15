@@ -58,7 +58,7 @@ public class Jugador extends javax.swing.JInternalFrame {
         txtcedula.setEnabled(false);
         txtpasaporte.setEnabled(false);
       
-
+btnnuevo.setEnabled(false);
         btnguardar.setEnabled(false);
         btneliminar1.setEnabled(false);
         
